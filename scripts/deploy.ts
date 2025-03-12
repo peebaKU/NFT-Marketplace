@@ -1,18 +1,34 @@
-import { ethers } from "hardhat";
+import { HardhatRuntimeEnvironment } from "hardhat/types";
+import { DeployFunction } from "hardhat-deploy/types";
+import { network } from "hardhat";
+import { developmentChains, VERIFICATION_BLOCK_CONFIRMATIONS } from "../hardhat.config";
+import { verify } from "../utils/verify";
 
-async function main() {
-    const NFT = await ethers.getContractFactory("NFT");
-    const nft = await NFT.deploy();
-    await nft.waitForDeployment();
-    console.log(`NFT Contract deployed to: ${await nft.getAddress()}`);
+const deployNftMarketplace: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
+    const { getNamedAccounts, deployments } = hre;
+    const { deploy, log } = deployments;
+    const { deployer } = await getNamedAccounts();
 
-    const Marketplace = await ethers.getContractFactory("NFTMarketplace");
-    const marketplace = await Marketplace.deploy();
-    await marketplace.waitForDeployment();
-    console.log(`Marketplace Contract deployed to: ${await marketplace.getAddress()}`);
-}
+    const waitBlockConfirmations = developmentChains.includes(network.name)
+        ? 1
+        : VERIFICATION_BLOCK_CONFIRMATIONS;
 
-main().catch((error) => {
-    console.error(error);
-    process.exitCode = 1;
-});
+    log("----------------------------------------------------");
+    const arguments: any[] = [];
+    const nftMarketplace = await deploy("NftMarketplace", {
+        from: deployer,
+        args: arguments,
+        log: true,
+        waitConfirmations: waitBlockConfirmations,
+    });
+
+    // Verify the deployment
+    if (!developmentChains.includes(network.name) && process.env.ETHERSCAN_API_KEY) {
+        log("Verifying...");
+        await verify(nftMarketplace.address, arguments);
+    }
+    log("----------------------------------------------------");
+};
+
+export default deployNftMarketplace;
+deployNftMarketplace.tags = ["all", "nftmarketplace"];
