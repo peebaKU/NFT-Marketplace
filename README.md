@@ -37,3 +37,27 @@ From there, follow the instructions on the hosted React app. It will walk you th
 - __Where can I find more resources?__
 
   This Box is a sweet combo of [Truffle](https://trufflesuite.com) and [Webpack](https://webpack.js.org). Either one would be a great place to start!
+
+## Local Development
+
+### 1. Run Hardhat Node
+First, start a local Hardhat node:
+```bash
+npx hardhat node
+```
+This will start a local Ethereum network for development and display a list of available accounts with test ETH.
+
+### 2. Deploy Smart Contracts
+In a new terminal window, compile and deploy the smart contracts:
+
+```bash
+# Compile the smart contracts
+npx hardhat compile
+
+# Deploy to local network
+npx hardhat run scripts/deploy.ts --network localhost
+```
+
+Make sure to save the deployed contract addresses displayed in the console - you'll need them for frontend integration.
+
+**Note:** Keep the Hardhat node running in a separate terminal while developing and testing your application.
