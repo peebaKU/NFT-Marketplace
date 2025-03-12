@@ -21,3 +21,14 @@ yarn hardhat run scripts/deploy.ts --network localhost
 Make sure to save the deployed contract addresses displayed in the console - you'll need them for frontend integration.
 
 **Note:** Keep the Hardhat node running in a separate terminal while developing and testing your application.
+
+
+### .env 
+```bash
+PRIVATE_KEY=""
+ETHERSCAN_API_KEY=""
+MAINNET_RPC_URL=""
+SEPOLIA_RPC_URL=""
+POLYGON_MAINNET_RPC_URL=""
+REPORT_GAS="true"
+```
