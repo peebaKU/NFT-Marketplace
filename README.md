@@ -25,10 +25,7 @@ Make sure to save the deployed contract addresses displayed in the console - you
 
 ### .env 
 ```bash
+SEPOLIA_RPC_URL=""
 PRIVATE_KEY=""
 ETHERSCAN_API_KEY=""
-MAINNET_RPC_URL=""
-SEPOLIA_RPC_URL=""
-POLYGON_MAINNET_RPC_URL=""
-REPORT_GAS="true"
 ```
