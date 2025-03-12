@@ -43,7 +43,7 @@ From there, follow the instructions on the hosted React app. It will walk you th
 ### 1. Run Hardhat Node
 First, start a local Hardhat node:
 ```bash
-npx hardhat node
+yarn hardhat node
 ```
 This will start a local Ethereum network for development and display a list of available accounts with test ETH.
 
@@ -52,10 +52,10 @@ In a new terminal window, compile and deploy the smart contracts:
 
 ```bash
 # Compile the smart contracts
-npx hardhat compile
+yarn hardhat compile
 
 # Deploy to local network
-npx hardhat run scripts/deploy.ts --network localhost
+yarn hardhat run scripts/deploy.ts --network localhost
 ```
 
 Make sure to save the deployed contract addresses displayed in the console - you'll need them for frontend integration.
